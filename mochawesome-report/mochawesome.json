@@ -1,0 +1,331 @@
+{
+  "stats": {
+    "suites": 5,
+    "tests": 9,
+    "passes": 9,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-06-01T10:59:31.960Z",
+    "end": "2024-06-01T10:59:35.465Z",
+    "duration": 3505,
+    "testsRegistered": 9,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "cd4435d2-1dd6-431b-9b1b-ec516671bb2d",
+      "title": "",
+      "fullFile": "C:\\Users\\iput\\api-testing\\test\\api-users.js",
+      "file": "\\test\\api-users.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "d1a93b68-eeed-4078-925d-1150ffeead8f",
+          "title": "Users",
+          "fullFile": "C:\\Users\\iput\\api-testing\\test\\api-users.js",
+          "file": "\\test\\api-users.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "ae356b53-03dd-4f41-a73a-987e9aac77ed",
+              "title": "POST /public-api/users",
+              "fullFile": "C:\\Users\\iput\\api-testing\\test\\api-users.js",
+              "file": "\\test\\api-users.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Create a new user with valid data - Positive",
+                  "fullTitle": "Users POST /public-api/users Create a new user with valid data - Positive",
+                  "timedOut": false,
+                  "duration": 560,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const data = {\n    name: 'aca caca',\n    email: `aca${Math.round(Math.random() * 999)}@mail.co`,\n    gender: 'female',\n    status: 'active'\n};\n    \nreturn request.post(`users`)\n    .set('Authorization', `Bearer ${token}`)\n    .send(data)\n    .then((res) => {\n        console.log(res.body);\n        expect(res.body.code).to.be.eq(201);\n        expect(res.body.data).to.deep.include(data);\n        idUser = res.body.data.id;\n});",
+                  "err": {},
+                  "uuid": "fa03e8d6-15f4-4e62-801b-47598785cb82",
+                  "parentUUID": "ae356b53-03dd-4f41-a73a-987e9aac77ed",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Fail to create a new user with empty fields - Negative",
+                  "fullTitle": "Users POST /public-api/users Fail to create a new user with empty fields - Negative",
+                  "timedOut": false,
+                  "duration": 308,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const data = {\n    name: '',\n    email: '',\n    gender: 'female',\n    status: 'active'\n};\n    \nreturn request.post(`users`)\n    .set('Authorization', `Bearer ${token}`)\n    .send(data)\n    .then((res) => {\n        console.log(res.body);\n        expect(res.body.code).to.be.eq(422);\n        expect(res.body.data).to.not.be.empty;\n        expect(res.body.data[0].message).to.be.eq(\"can't be blank\")\n        expect(res.body.data[1].message).to.be.eq(\"can't be blank\");\n});",
+                  "err": {},
+                  "uuid": "be775cb0-087c-4d37-87f7-dcd06df44698",
+                  "parentUUID": "ae356b53-03dd-4f41-a73a-987e9aac77ed",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "fa03e8d6-15f4-4e62-801b-47598785cb82",
+                "be775cb0-087c-4d37-87f7-dcd06df44698"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 868,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 5000
+            },
+            {
+              "uuid": "2e931f48-1b8a-4178-955e-29362b35e14e",
+              "title": "GET /public-api/users/xxx",
+              "fullFile": "C:\\Users\\iput\\api-testing\\test\\api-users.js",
+              "file": "\\test\\api-users.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Get user details with valid ID - Positive",
+                  "fullTitle": "Users GET /public-api/users/xxx Get user details with valid ID - Positive",
+                  "timedOut": false,
+                  "duration": 423,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "return request.get(`users/${idUser}?access-token=${token}`)\n    .then((res) => {\n        console.log(res.body)\n        expect(res.body.code).to.be.eq(200);\n        expect(res.body.data.id).to.be.eq(idUser);\n});",
+                  "err": {},
+                  "uuid": "8b56ef4b-c099-4880-a93e-4bdd2e4609fb",
+                  "parentUUID": "2e931f48-1b8a-4178-955e-29362b35e14e",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Fail to get user details with invalid id - Negative",
+                  "fullTitle": "Users GET /public-api/users/xxx Fail to get user details with invalid id - Negative",
+                  "timedOut": false,
+                  "duration": 475,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const invalidId = idUser * 5;\nreturn request.get(`users/${invalidId}?access-token=${token}`)\n    .then((res) => {\n        console.log(res.body)\n        expect(res.body.code).to.be.eq(404);\n        expect(res.body.data.message).to.be.eq('Resource not found');\n});",
+                  "err": {},
+                  "uuid": "eb64a258-54ca-4d62-b5aa-aa16a95119e7",
+                  "parentUUID": "2e931f48-1b8a-4178-955e-29362b35e14e",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "8b56ef4b-c099-4880-a93e-4bdd2e4609fb",
+                "eb64a258-54ca-4d62-b5aa-aa16a95119e7"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 898,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 5000
+            },
+            {
+              "uuid": "f3411138-de70-48d6-bb29-91f4f42529b8",
+              "title": "PUT /public-api/users/xxx",
+              "fullFile": "C:\\Users\\iput\\api-testing\\test\\api-users.js",
+              "file": "\\test\\api-users.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Update user details with valid data - Positive",
+                  "fullTitle": "Users PUT /public-api/users/xxx Update user details with valid data - Positive",
+                  "timedOut": false,
+                  "duration": 264,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const data = {\n    name: 'jojo',\n    status: 'inactive'\n};\n    \nreturn request.put(`users/${idUser}`)\n    .set('Authorization', `Bearer ${token}`)\n    .send(data)\n    .then((res) => {\n        console.log(res.body);\n        expect(res.body.code).to.be.eq(200);\n        expect(res.body.data).to.deep.include(data);\n});",
+                  "err": {},
+                  "uuid": "cdd61899-e1d7-472d-96a1-eddd7e7ab2e7",
+                  "parentUUID": "f3411138-de70-48d6-bb29-91f4f42529b8",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Fail to update user details with invalid token - Negative",
+                  "fullTitle": "Users PUT /public-api/users/xxx Fail to update user details with invalid token - Negative",
+                  "timedOut": false,
+                  "duration": 495,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const data = {\n    name: 'eka',\n    gender: 'male'\n};\n    \nreturn request.put(`users/${idUser}`)\n    .set('Authorization', `Bearer ${token}+56`)\n    .send(data)\n    .then((res) => {\n        console.log(res.body);\n        expect(res.body.code).to.be.eq(401);\n        expect(res.body.data.message).to.be.eq(\"Invalid token\");\n});",
+                  "err": {},
+                  "uuid": "4ed4aa1e-3d3d-4bf7-ba0d-12bda1e1afd2",
+                  "parentUUID": "f3411138-de70-48d6-bb29-91f4f42529b8",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Fail to update user details with invalid data - Negative",
+                  "fullTitle": "Users PUT /public-api/users/xxx Fail to update user details with invalid data - Negative",
+                  "timedOut": false,
+                  "duration": 327,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const data = {\n    name: '',\n    status: 'inactive'\n};\n    \nreturn request.put(`users/${idUser}`)\n    .set('Authorization', `Bearer ${token}`)\n    .send(data)\n    .then((res) => {\n        console.log(res.body);\n        expect(res.body.code).to.be.eq(422);\n        expect(res.body.data[0].message).to.be.eq(\"can't be blank\");\n});",
+                  "err": {},
+                  "uuid": "d8dea0a1-d09d-4dfd-8fca-d34b407d3980",
+                  "parentUUID": "f3411138-de70-48d6-bb29-91f4f42529b8",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "cdd61899-e1d7-472d-96a1-eddd7e7ab2e7",
+                "4ed4aa1e-3d3d-4bf7-ba0d-12bda1e1afd2",
+                "d8dea0a1-d09d-4dfd-8fca-d34b407d3980"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 1086,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 5000
+            },
+            {
+              "uuid": "4d589949-fbf0-4867-a52b-2a40cd3ba974",
+              "title": "DELETE /public-api/users/xxx",
+              "fullFile": "C:\\Users\\iput\\api-testing\\test\\api-users.js",
+              "file": "\\test\\api-users.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Delete user with valid ID - Positive",
+                  "fullTitle": "Users DELETE /public-api/users/xxx Delete user with valid ID - Positive",
+                  "timedOut": false,
+                  "duration": 335,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "return request.delete(`users/${idUser}`).set('Authorization', `Bearer ${token}`).then((res) => {\n        console.log(res.body);\n        expect(res.body.code).to.be.eq(204);\n        expect(res.body.data).to.be.eq(null);\n});",
+                  "err": {},
+                  "uuid": "95f42f53-a530-4444-b033-63eb58657f09",
+                  "parentUUID": "4d589949-fbf0-4867-a52b-2a40cd3ba974",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Fail to delete user with invalid ID - Negative",
+                  "fullTitle": "Users DELETE /public-api/users/xxx Fail to delete user with invalid ID - Negative",
+                  "timedOut": false,
+                  "duration": 303,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "return request.delete(`users/${idUser}`).set('Authorization', `Bearer ${token}`).then((res) => {\n        console.log(res.body);\n        expect(res.body.code).to.be.eq(404);\n        expect(res.body.data.message).to.be.eq('Resource not found');\n});",
+                  "err": {},
+                  "uuid": "cdad4ce0-b511-4c17-b9dd-853f13c4037f",
+                  "parentUUID": "4d589949-fbf0-4867-a52b-2a40cd3ba974",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "95f42f53-a530-4444-b033-63eb58657f09",
+                "cdad4ce0-b511-4c17-b9dd-853f13c4037f"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 638,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 5000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 5000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 5000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.4.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}
